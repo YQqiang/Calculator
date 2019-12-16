@@ -65,12 +65,13 @@ struct CalculatorButtonPad: View {
 
 struct ContentView: View {
     let scale: CGFloat = UIScreen.main.bounds.width / 414
-    @State private var brain: CalculatorBrain = .left("0")
+//    @State private var brain: CalculatorBrain = .left("0")
+    @ObservedObject var model = CalculatorModel()
 
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
-            Text(brain.output)
+            Text(model.brain.output)
                 .font(.system(size: 76))
                 .minimumScaleFactor(0.5)
                 .padding(.trailing, 24)
@@ -79,7 +80,7 @@ struct ContentView: View {
                     minWidth: 0,
                     maxWidth: .infinity,
                     alignment: .trailing)
-            CalculatorButtonPad(brain: self.$brain)
+            CalculatorButtonPad(brain: $model.brain)
                 .padding(.bottom)
         }
         .scaleEffect(scale)

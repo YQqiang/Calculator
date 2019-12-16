@@ -89,16 +89,23 @@ struct ContentView: View {
     let scale: CGFloat = UIScreen.main.bounds.width / 414
     @EnvironmentObject var model: CalculatorModel
     @State private var editingHistory = false
+    @State private var showingResult = false
 
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
             Button("操作履历:(\(model.history.count))") {
                 self.editingHistory = true
-            }.sheet(isPresented: self.$editingHistory) { () -> HistoryView in
+            }
+            .sheet(isPresented: self.$editingHistory) { () -> HistoryView in
                 HistoryView(model: self.model)
             }
             Text(model.brain.output)
+                .onTapGesture {
+                    self.showingResult = true
+                    print("\(self.model.historyDetail)")
+
+                }
                 .font(.system(size: 76))
                 .minimumScaleFactor(0.5)
                 .padding(.trailing, 24)
@@ -107,6 +114,15 @@ struct ContentView: View {
                     minWidth: 0,
                     maxWidth: .infinity,
                     alignment: .trailing)
+                .onTapGesture {
+                    self.showingResult = true
+                }
+                .alert(isPresented: self.$showingResult) { () -> Alert in
+                    Alert(title: Text("\(self.model.historyDetail)"), message: Text("\(self.model.brain.output)"), primaryButton: Alert.Button.default(Text("复制"), action: {
+                        UIPasteboard.general.string = self.model.brain.output
+                    }), secondaryButton: Alert.Button.cancel(Text("取消"), action: {
+                    }))
+                }
             CalculatorButtonPad()
                 .padding(.bottom)
         }

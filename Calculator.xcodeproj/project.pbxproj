@@ -17,6 +17,7 @@
 		2F01CBAE23A3811700FD1AEA /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F01CBAD23A3811700FD1AEA /* CalculatorTests.swift */; };
 		2F01CBB923A3811700FD1AEA /* CalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F01CBB823A3811700FD1AEA /* CalculatorUITests.swift */; };
 		2F01CBC723A3902C00FD1AEA /* CalculatorButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F01CBC623A3902B00FD1AEA /* CalculatorButtonItem.swift */; };
+		2F01CBC923A4B1FE00FD1AEA /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F01CBC823A4B1FE00FD1AEA /* CalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		2F01CBB823A3811700FD1AEA /* CalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorUITests.swift; sourceTree = "<group>"; };
 		2F01CBBA23A3811700FD1AEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F01CBC623A3902B00FD1AEA /* CalculatorButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonItem.swift; sourceTree = "<group>"; };
+		2F01CBC823A4B1FE00FD1AEA /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				2F01CB9523A3811200FD1AEA /* SceneDelegate.swift */,
 				2F01CB9A23A3811200FD1AEA /* ContentView.swift */,
 				2F01CBC623A3902B00FD1AEA /* CalculatorButtonItem.swift */,
+				2F01CBC823A4B1FE00FD1AEA /* CalculatorBrain.swift */,
 				2F01CB9C23A3811600FD1AEA /* Assets.xcassets */,
 				2F01CBA123A3811600FD1AEA /* LaunchScreen.storyboard */,
 				2F01CBA423A3811600FD1AEA /* Info.plist */,
@@ -273,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F01CBC923A4B1FE00FD1AEA /* CalculatorBrain.swift in Sources */,
 				2F01CB9423A3811100FD1AEA /* AppDelegate.swift in Sources */,
 				2F01CB9623A3811200FD1AEA /* SceneDelegate.swift in Sources */,
 				2F01CBC723A3902C00FD1AEA /* CalculatorButtonItem.swift in Sources */,
@@ -444,8 +448,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
+				DEVELOPMENT_TEAM = FTYJBY2LP3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Calculator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,8 +469,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
+				DEVELOPMENT_TEAM = FTYJBY2LP3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Calculator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

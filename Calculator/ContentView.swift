@@ -29,14 +29,14 @@ struct CalculatorButton: View {
 }
 
 struct CalculatorButtonRow: View {
-    @Binding var brain: CalculatorBrain
+    var model: CalculatorModel
     let row: [CalculatorButtonItem]
 
     var body: some View {
         HStack {
             ForEach(row, id: \.self) { (item) in
                 CalculatorButton(title: item.title, size: item.size, backgroundColorName: item.backgroundColorName, titleColorName: item.titleColorName) {
-                    self.brain = self.brain.apply(item: item)
+                    self.model.apply(item)
                 }
             }
         }
@@ -44,7 +44,7 @@ struct CalculatorButtonRow: View {
 }
 
 struct CalculatorButtonPad: View {
-    @Binding var brain: CalculatorBrain
+    var model: CalculatorModel
 
     let pad: [[CalculatorButtonItem]] = [
         [.command(.clear), .command(.flip), .command(.percent), .op(.divide),],
@@ -57,20 +57,49 @@ struct CalculatorButtonPad: View {
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
             ForEach(pad, id: \.self) { (row) -> CalculatorButtonRow in
-                CalculatorButtonRow(brain: self.$brain, row: row)
+                CalculatorButtonRow(model: self.model, row: row)
             }
         }
     }
 }
 
+struct HistoryView: View {
+    @ObservedObject var model: CalculatorModel
+
+    var body: some View {
+        VStack {
+            if model.totalCount == 0 {
+                Text("没有履历")
+            } else {
+                HStack {
+                    Text("履历").font(.headline)
+                    Text("\(model.historyDetail)").lineLimit(nil)
+                }
+                HStack {
+                    Text("显示").font(.headline)
+                    Text("\(model.brain.output)")
+                }
+                Slider(value: $model.slidingIndex, in: 0...Float(model.totalCount), step: 1) { (result) in
+
+                }
+            }
+        }.padding()
+    }
+}
+
 struct ContentView: View {
     let scale: CGFloat = UIScreen.main.bounds.width / 414
-//    @State private var brain: CalculatorBrain = .left("0")
     @ObservedObject var model = CalculatorModel()
+    @State private var editingHistory = false
 
     var body: some View {
         VStack(spacing: 12) {
             Spacer()
+            Button("操作履历:(\(model.history.count))") {
+                self.editingHistory = true
+            }.sheet(isPresented: self.$editingHistory) { () -> HistoryView in
+                HistoryView(model: self.model)
+            }
             Text(model.brain.output)
                 .font(.system(size: 76))
                 .minimumScaleFactor(0.5)
@@ -80,7 +109,7 @@ struct ContentView: View {
                     minWidth: 0,
                     maxWidth: .infinity,
                     alignment: .trailing)
-            CalculatorButtonPad(brain: $model.brain)
+            CalculatorButtonPad(model: model)
                 .padding(.bottom)
         }
         .scaleEffect(scale)

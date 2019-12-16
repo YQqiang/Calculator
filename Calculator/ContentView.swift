@@ -29,7 +29,7 @@ struct CalculatorButton: View {
 }
 
 struct CalculatorButtonRow: View {
-    var model: CalculatorModel
+    @EnvironmentObject var model: CalculatorModel
     let row: [CalculatorButtonItem]
 
     var body: some View {
@@ -44,8 +44,6 @@ struct CalculatorButtonRow: View {
 }
 
 struct CalculatorButtonPad: View {
-    var model: CalculatorModel
-
     let pad: [[CalculatorButtonItem]] = [
         [.command(.clear), .command(.flip), .command(.percent), .op(.divide),],
         [.digit(7), .digit(8), .digit(9), .op(.multiply)],
@@ -57,7 +55,7 @@ struct CalculatorButtonPad: View {
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
             ForEach(pad, id: \.self) { (row) -> CalculatorButtonRow in
-                CalculatorButtonRow(model: self.model, row: row)
+                CalculatorButtonRow(row: row)
             }
         }
     }
@@ -89,7 +87,7 @@ struct HistoryView: View {
 
 struct ContentView: View {
     let scale: CGFloat = UIScreen.main.bounds.width / 414
-    @ObservedObject var model = CalculatorModel()
+    @EnvironmentObject var model: CalculatorModel
     @State private var editingHistory = false
 
     var body: some View {
@@ -109,7 +107,7 @@ struct ContentView: View {
                     minWidth: 0,
                     maxWidth: .infinity,
                     alignment: .trailing)
-            CalculatorButtonPad(model: model)
+            CalculatorButtonPad()
                 .padding(.bottom)
         }
         .scaleEffect(scale)

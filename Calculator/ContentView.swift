@@ -63,9 +63,16 @@ struct CalculatorButtonPad: View {
 
 struct HistoryView: View {
     @ObservedObject var model: CalculatorModel
+    @Binding var editingHistory: Bool
 
     var body: some View {
         VStack {
+            Button("关闭页面") {
+                self.editingHistory = false
+            }.frame(minWidth: 0,
+                    maxWidth: UIScreen.main.bounds.width,
+                    alignment: .trailing)
+            Spacer()
             if model.totalCount == 0 {
                 Text("没有履历")
             } else {
@@ -78,9 +85,9 @@ struct HistoryView: View {
                     Text("\(model.brain.output)")
                 }
                 Slider(value: $model.slidingIndex, in: 0...Float(model.totalCount), step: 1) { (result) in
-
                 }
             }
+            Spacer()
         }.padding()
     }
 }
@@ -98,14 +105,9 @@ struct ContentView: View {
                 self.editingHistory = true
             }
             .sheet(isPresented: self.$editingHistory) { () -> HistoryView in
-                HistoryView(model: self.model)
+                HistoryView(model: self.model, editingHistory: self.$editingHistory)
             }
             Text(model.brain.output)
-                .onTapGesture {
-                    self.showingResult = true
-                    print("\(self.model.historyDetail)")
-
-                }
                 .font(.system(size: 76))
                 .minimumScaleFactor(0.5)
                 .padding(.trailing, 24)

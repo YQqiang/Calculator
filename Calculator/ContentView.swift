@@ -69,10 +69,7 @@ struct HistoryView: View {
         VStack {
             Button("关闭页面") {
                 self.editingHistory = false
-            }.frame(minWidth: 0,
-                    maxWidth: UIScreen.main.bounds.width,
-                    alignment: .trailing)
-            Spacer()
+            }.padding()
             if model.totalCount == 0 {
                 Text("没有履历")
             } else {
@@ -87,7 +84,6 @@ struct HistoryView: View {
                 Slider(value: $model.slidingIndex, in: 0...Float(model.totalCount), step: 1) { (result) in
                 }
             }
-            Spacer()
         }.padding()
     }
 }
@@ -104,7 +100,7 @@ struct ContentView: View {
             Button("操作履历:(\(model.history.count))") {
                 self.editingHistory = true
             }
-            .sheet(isPresented: self.$editingHistory) { () -> HistoryView in
+            if self.editingHistory {
                 HistoryView(model: self.model, editingHistory: self.$editingHistory)
             }
             Text(model.brain.output)
